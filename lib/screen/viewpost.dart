@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_basic_feed/bloclike/likes.dart';
 import 'package:instagram_basic_feed/model/comment.dart';
 import 'package:instagram_basic_feed/model/post.dart';
 class ViewPostScreen extends StatefulWidget {
   final Post post;
+
 
   ViewPostScreen({this.post});
 
@@ -59,6 +61,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final _bloc = CounterBloc();
     return Scaffold(
       backgroundColor: Color(0xFFEDF0F6),
       body: SingleChildScrollView(
@@ -166,14 +169,19 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                                       IconButton(
                                         icon: Icon(Icons.favorite_border),
                                         iconSize: 30.0,
-                                        onPressed: () => print('Like post'),
+                                        onPressed: () {
+                                          _bloc.counterEventSink.add(IncrementEvent());
+                                          },
                                       ),
-                                      Text(
-                                        '100',
-                                        style: TextStyle(
-                                          fontSize: 14.0,
-                                          fontWeight: FontWeight.w600,
-                                        ),
+                                      StreamBuilder(
+                                        stream: _bloc.counter,
+                                        initialData: 0,
+                                        builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+                                          return Text (
+                                            '${snapshot.data}',
+                                            style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w600),
+                                          );
+                                        },
                                       ),
                                     ],
                                   ),
