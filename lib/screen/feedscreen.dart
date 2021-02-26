@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_basic_feed/model/post.dart' ;
+import 'package:instagram_basic_feed/providercodes/themecolrs.dart';
 import 'package:instagram_basic_feed/screen/messagescreen.dart';
 import 'package:instagram_basic_feed/screen/msg.dart';
 import 'package:instagram_basic_feed/screen/viewpost.dart' ;
 import 'package:instagram_basic_feed/searchpage.dart';
+import 'package:provider/provider.dart';
 
 class FeedScreen extends StatefulWidget {
   @override
@@ -18,7 +20,8 @@ class _FeedScreenState extends State<FeedScreen> {
         width: double.infinity,
         height: 560.0,
         decoration: BoxDecoration(
-          color: Colors.white,
+          //color: Colors.white,
+          color: Theme.of(context).accentColor,
           borderRadius: BorderRadius.circular(25.0),
         ),
         child: Column(
@@ -32,6 +35,7 @@ class _FeedScreenState extends State<FeedScreen> {
                       width: 50.0,
                       height: 50.0,
                       decoration: BoxDecoration(
+                        color: Theme.of(context).accentColor,
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(
@@ -54,11 +58,9 @@ class _FeedScreenState extends State<FeedScreen> {
                     ),
                     title: Text(
                       posts[index].authorName,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
-                    subtitle: Text(posts[index].timeAgo),
+                    subtitle: Text(posts[index].timeAgo,style: Theme.of(context).textTheme.bodyText2),
                     trailing: PopupMenuButton<String>(itemBuilder: (BuildContext context){
                       return [
                         PopupMenuItem(child: Text("Report"), value: "Report",),
@@ -86,6 +88,7 @@ class _FeedScreenState extends State<FeedScreen> {
                       width: double.infinity,
                       height: 400.0,
                       decoration: BoxDecoration(
+                        color: Theme.of(context).accentColor,
                         borderRadius: BorderRadius.circular(25.0),
                         boxShadow: [
                           BoxShadow(
@@ -117,10 +120,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                 ),
                                 Text(
                                   '100',
-                                  style: TextStyle(
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                                  style: Theme.of(context).textTheme.bodyText1,
                                 ),
                               ],
                             ),
@@ -143,10 +143,7 @@ class _FeedScreenState extends State<FeedScreen> {
                                 ),
                                 Text(
                                   '22',
-                                  style: TextStyle(
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                                  style: Theme.of(context).textTheme.bodyText1,
                                 ),
                               ],
                             ),
@@ -172,7 +169,7 @@ class _FeedScreenState extends State<FeedScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFEDF0F6),
+      backgroundColor: Theme.of(context).accentColor,//Color(0xFFEDF0F6),
       body: ListView(
         physics: AlwaysScrollableScrollPhysics(),
         children: <Widget>[
@@ -191,6 +188,14 @@ class _FeedScreenState extends State<FeedScreen> {
                 ),
              Row(
                   children: <Widget>[
+                    Consumer<ThemeNotifier>(
+                      builder: (context,notifier,child) => Switch(
+                        onChanged: (val){
+                          notifier.toggleTheme();
+                        },
+                        value: notifier.darkTheme ,
+                      ),
+                    ),
                   /*IconButton(
                       icon: Icon(Icons.delivery_dining),
                       iconSize: 30.0,
@@ -235,6 +240,7 @@ class _FeedScreenState extends State<FeedScreen> {
                   width: 60.0,
                   height: 60.0,
                   decoration: BoxDecoration(
+                    color: Theme.of(context).accentColor,
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
@@ -274,7 +280,7 @@ class _FeedScreenState extends State<FeedScreen> {
               icon: Icon(
                 Icons.dynamic_feed_sharp,
                 size: 30.0,
-                color: Colors.black,
+                color: Colors.black45,
               ),
               title: Text('Feed'),
             ),

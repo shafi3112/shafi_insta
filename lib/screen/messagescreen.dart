@@ -20,6 +20,7 @@ class _messagescrState extends State<messagescr> {
           width: 50.0,
           height: 50.0,
           decoration: BoxDecoration(
+            color: Theme.of(context).accentColor,
             shape: BoxShape.circle,
             boxShadow: [
               BoxShadow(
@@ -42,11 +43,9 @@ class _messagescrState extends State<messagescr> {
         ),
         title: Text(
           messages[index].authorName,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
+          style: Theme.of(context).textTheme.bodyText1,
         ),
-        subtitle: Text(messages[index].text),
+        subtitle: Text(messages[index].text,style: Theme.of(context).textTheme.bodyText2),
         trailing: IconButton(
           icon: Icon(
             Icons.message,
@@ -64,6 +63,7 @@ class _messagescrState extends State<messagescr> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Theme.of(context).accentColor,
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(
@@ -85,9 +85,9 @@ class _messagescrState extends State<messagescr> {
                       ),
                       child: Row(
                         children: <Widget>[
-                          Icon(Icons.add,color: Colors.pink,size: 20,),
+                          Icon(Icons.add,color: Colors.black,size: 20,),
                           SizedBox(width: 2,),
-                          Text("ADD",style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
+                          Text("ADD",style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,color: Colors.black),),
                         ],
                       ),
                     ),
@@ -104,12 +104,13 @@ class _messagescrState extends State<messagescr> {
                   hintStyle: TextStyle(color: Colors.grey.shade600),
                   prefixIcon: Icon(Icons.search,color: Colors.grey.shade600, size: 20,),
                   filled: true,
-                  fillColor: Colors.grey.shade100,
+                  fillColor: Theme.of(context).accentColor,
                   contentPadding: EdgeInsets.all(8),
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20),
                       borderSide: BorderSide(
-                          color: Colors.grey.shade100
+                          //color: Colors.grey.shade100
+                        color: Theme.of(context).accentColor,
                       )
                   ),
                 ),
@@ -140,6 +141,7 @@ class _messagescrState extends State<messagescr> {
         child: Container(
           height: 100.0,
           decoration: BoxDecoration(
+            color: Theme.of(context).accentColor,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(30.0),
               topRight: Radius.circular(30.0),
@@ -151,7 +153,7 @@ class _messagescrState extends State<messagescr> {
                 blurRadius: 6.0,
               ),
             ],
-            color: Colors.white,
+            //color: Colors.white,
           ),
           child: Padding(
             padding: EdgeInsets.all(12.0),
@@ -168,11 +170,13 @@ class _messagescrState extends State<messagescr> {
                 ),
                 contentPadding: EdgeInsets.all(20.0),
                 hintText: 'Send Message',
+                hintStyle: Theme.of(context).textTheme.bodyText2,
                 prefixIcon: Container(
                   margin: EdgeInsets.all(4.0),
                   width: 48.0,
                   height: 48.0,
                   decoration: BoxDecoration(
+                    color: Theme.of(context).accentColor,
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
