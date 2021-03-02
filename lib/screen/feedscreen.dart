@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:instagram_basic_feed/bloclike/themecolors.dart';
 import 'package:instagram_basic_feed/model/post.dart' ;
 import 'package:instagram_basic_feed/screen/messagescreen.dart';
@@ -15,6 +18,56 @@ class FeedScreen extends StatefulWidget {
 
 class _FeedScreenState extends State<FeedScreen> {
   bool _isThemeSwitch = false;
+  File _image;
+  _imgFromCamera() async {
+    File image = await ImagePicker.pickImage(
+        source: ImageSource.camera, imageQuality: 50
+    );
+
+    setState(() {
+      _image = image;
+    });
+  }
+
+  _imgFromGallery() async {
+    File image = await  ImagePicker.pickImage(
+        source: ImageSource.gallery, imageQuality: 50
+    );
+
+    setState(() {
+      _image = image;
+    });
+  }
+  void _showPicker(context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return SafeArea(
+            child: Container(
+              child: new Wrap(
+                children: <Widget>[
+                  new ListTile(
+                      leading: new Icon(Icons.photo_library),
+                      title: new Text('Photo Library'),
+                      onTap: () {
+                        _imgFromGallery();
+                        Navigator.of(context).pop();
+                      }),
+                  new ListTile(
+                    leading: new Icon(Icons.photo_camera),
+                    title: new Text('Camera'),
+                    onTap: () {
+                      _imgFromCamera();
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+    );
+  }
   Widget _buildPost(int index) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
@@ -327,6 +380,20 @@ class _FeedScreenState extends State<FeedScreen> {
             ),
             BottomNavigationBarItem(
               icon: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      _showPicker(context);
+                    },
+                    child: _image != null
+                        ? ClipRRect(borderRadius: BorderRadius.circular(50),
+                      child: Image.file(_image, width: 100, height: 100, fit: BoxFit.fitHeight),
+                    )
+                        : Icon(Icons.camera_alt),)
+
+
+              ),
+              /*icon: Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
                 child: FlatButton(
                   padding: EdgeInsets.symmetric(vertical: 5.0),
@@ -341,7 +408,7 @@ class _FeedScreenState extends State<FeedScreen> {
                     color: Theme.of(context).accentColor,
                   ),
                 ),
-              ),
+              ),*/
               title: Text(''),
             ),
             BottomNavigationBarItem(
