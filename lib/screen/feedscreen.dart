@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:instagram_basic_feed/model/post.dart' ;
 import 'package:instagram_basic_feed/screen/messagescreen.dart';
 import 'package:instagram_basic_feed/screen/msg.dart';
+import 'package:instagram_basic_feed/screen/profilepage.dart';
 import 'package:instagram_basic_feed/screen/viewpost.dart' ;
 import 'package:instagram_basic_feed/searchpage.dart';
 
@@ -276,7 +277,7 @@ class _FeedScreenState extends State<FeedScreen> {
                 size: 30.0,
                 color: Colors.black,
               ),
-              title: Text('Feed'),
+              title: Text(''),
             ),
             BottomNavigationBarItem(
               icon: Padding(
@@ -324,16 +325,44 @@ class _FeedScreenState extends State<FeedScreen> {
                 size: 30.0,
                 color: Colors.grey,
               ),
-              title: Text('Likes'),
+              title: Text(''),
             ),
             BottomNavigationBarItem(
-              icon: Icon(
+              icon: Padding(
+                padding: EdgeInsets.all(5.0),
+                child: IconButton(
+                  icon: Icon(
+                    Icons.person_outline,
+                  ),
+                  iconSize: 30.0,
+                  color: Colors.grey,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => UserProfilePage(),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              title: Text(''),
+            ),
+              /*icon: Icon(
                 Icons.person_outline,
                 size: 30.0,
                 color: Colors.grey,
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => UserProfilePage(),
+                    ),
+                  );
+                },
               ),
               title: Text('Profile'),
-            ),
+            ),*/
           ],
         ),
       ),
