@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_basic_feed/model/comment.dart';
+import 'package:instagram_basic_feed/model/heart.dart';
 import 'package:instagram_basic_feed/model/post.dart';
 class ViewPostScreen extends StatefulWidget {
   final Post post;
@@ -46,13 +47,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
           ),
         ),
         subtitle: Text(comments[index].text),
-        trailing: IconButton(
-          icon: Icon(
-            Icons.favorite_border,
-          ),
-          color: Colors.grey,
-          onPressed: () => print('Like comment'),
-        ),
+        trailing: Heart(),
       ),
     );
   }
@@ -133,7 +128,7 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                           ],
                         ),
                         InkWell(
-                          onDoubleTap: () => print('Like post'),
+                          onDoubleTap: () => Heart(),
                           child: Container(
                             margin: EdgeInsets.all(10.0),
                             width: double.infinity,
@@ -163,11 +158,12 @@ class _ViewPostScreenState extends State<ViewPostScreen> {
                                 children: <Widget>[
                                   Row(
                                     children: <Widget>[
-                                      IconButton(
+                                      Heart(),
+                                      /*IconButton(
                                         icon: Icon(Icons.favorite_border),
                                         iconSize: 30.0,
                                         onPressed: () => print('Like post'),
-                                      ),
+                                      ),*/
                                       Text(
                                         '100',
                                         style: TextStyle(

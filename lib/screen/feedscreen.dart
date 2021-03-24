@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_basic_feed/model/heart.dart';
 import 'package:instagram_basic_feed/model/post.dart' ;
 import 'package:instagram_basic_feed/screen/messagescreen.dart';
 import 'package:instagram_basic_feed/screen/msg.dart';
@@ -71,7 +72,7 @@ class _FeedScreenState extends State<FeedScreen> {
                     }),
                   ),
                   InkWell(
-                    onDoubleTap: () => print('Like post'),
+                    onDoubleTap: () => Heart(),
                     onTap: () {
                       Navigator.push(
                         context,
@@ -111,11 +112,12 @@ class _FeedScreenState extends State<FeedScreen> {
                           children: <Widget>[
                             Row(
                               children: <Widget>[
-                                IconButton(
+                                Heart(),
+                                /*IconButton(
                                   icon: Icon(Icons.favorite_border),
                                   iconSize: 30.0,
                                   onPressed: () => print('Like post'),
-                                ),
+                                ),*/
                                 Text(
                                   '100',
                                   style: TextStyle(
