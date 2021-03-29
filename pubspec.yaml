@@ -21,6 +21,8 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  photofilters: ^2.0.1
+  flutter_gifimage: ^1.0.1
   flutter_insta: ^0.1.4
   flutter:
     sdk: flutter
@@ -31,6 +33,7 @@ dependencies:
   cupertino_icons: ^1.0.0
 
 dev_dependencies:
+  image_picker: ^0.6.0+10
   flutter_launcher_icons: "^0.8.0"
   flutter_test:
     sdk: flutter

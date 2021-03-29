@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gifimage/flutter_gifimage.dart';
 import 'package:instagram_basic_feed/screen/msg.dart';
 
 
@@ -10,9 +11,41 @@ class messagescr extends StatefulWidget {
   _messagescrState createState() => _messagescrState();
 }
 
-class _messagescrState extends State<messagescr> {
+class _messagescrState extends State<messagescr> with SingleTickerProviderStateMixin {
+  GifController controller1;
+  void initState() {
+    controller1 = GifController(vsync: this);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller1.repeat(min: 1, max: 160, period: Duration(milliseconds: 900));
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    controller1.dispose();
+  }
+  void _modalAnimation(context) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+              color: Theme.of(context).accentColor,
+            ),
+            height: 200,
+            child: GifImage(
+              controller: controller1,
+              image: AssetImage("assets/images/sentmsg.gif"),
+            ),
+          );
+        }
+    );
+  }
   Widget _buildmessage(int index) {
-    appBar: AppBar;
     return Padding(
       padding: EdgeInsets.all(10.0),
       child: ListTile(
@@ -196,17 +229,13 @@ class _messagescrState extends State<messagescr> {
                 suffixIcon: Container(
                   margin: EdgeInsets.only(right: 4.0),
                   width: 70.0,
-                  child: FlatButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                    color: Color(0xFF23B66F),
-                    onPressed: () => print('Send Message'),
-                    child: Icon(
+                  child: IconButton(
+                    icon: Icon(
                       Icons.send,
-                      size: 25.0,
-                      color: Colors.white,
                     ),
+                    iconSize: 30.0,
+                    color: Colors.grey,
+                    onPressed: () => _modalAnimation(context),
                   ),
                 ),
               ),

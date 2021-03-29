@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:instagram_basic_feed/model/heart.dart';
 import 'package:instagram_basic_feed/model/post.dart' ;
+import 'package:instagram_basic_feed/screen/imagefilterscreen.dart';
 import 'package:instagram_basic_feed/screen/messagescreen.dart';
 import 'package:instagram_basic_feed/screen/msg.dart';
 import 'package:instagram_basic_feed/screen/profilepage.dart';
@@ -61,16 +62,27 @@ class _FeedScreenState extends State<FeedScreen> {
                       ),
                     ),
                     subtitle: Text(posts[index].timeAgo),
-                    trailing: PopupMenuButton<String>(itemBuilder: (BuildContext context){
+                    trailing: PopupMenuButton(
+                      onSelected: (result) {
+                        if (result == 0) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Filterscreen()),
+                          );
+                        }
+                      },
+                    itemBuilder: (BuildContext context){
                       return [
                         PopupMenuItem(child: Text("Report"), value: "Report",),
                         PopupMenuItem(child: Text("Post Notification"), value: "Post Notification",),
                         PopupMenuItem(child: Text("Copy Link"), value: "Copy Link",),
                         PopupMenuItem(child: Text("Unfollow"), value: "Unfollow",),
                         PopupMenuItem(child: Text("Mute"), value: "Mute",),
+                        PopupMenuItem(child: Text("Filter"),value: 0 ),
                       ];
                     }),
                   ),
+
                   InkWell(
                     onDoubleTap: () => Heart(),
                     onTap: () {
